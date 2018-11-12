@@ -1,8 +1,7 @@
 import javafx.application.Application
-import javafx.stage.Stage
 import tornadofx.*
 
-class LoginApp : App(MyView::class) {
+class LoginApp : App(LoginView::class) {
 
 }
 

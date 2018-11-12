@@ -14,7 +14,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 
 
-class MyView : View() {
+class LoginView : View() {
     var firstNameField: TextField by singleAssign()
     var lastNameField: TextField by singleAssign()
 
@@ -36,11 +36,11 @@ class MyView : View() {
     fun login() {
         val user = User(firstName = firstNameField.text, lastName = lastNameField.text)
         val bodyJson = Gson().toJson(user)
-        val (request, response, result) = Fuel.post("https://psykotlin.herokuapp.com/register")
-                .body(bodyJson)
-                .header("Content-Type" to "application/json")
-                .responseString()
-        result.fold({ print("dlf") }, {print("${it.response}")})
+//        val (request, response, result) = Fuel.post("https://psykotlin.herokuapp.com/register")
+//                .body(bodyJson)
+//                .responseString()
+//        result.fold({ print("dlf") }, {print("${it.response}")})
+        replaceWith(UserView::class)
     }
 
 }
