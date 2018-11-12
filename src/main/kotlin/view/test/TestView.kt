@@ -1,11 +1,13 @@
-package test
+package view.test
 
+import enity.ResultEntry
+import enity.Results
 import javafx.scene.control.Button
-import sun.plugin2.message.Message
+import org.jetbrains.exposed.sql.Date
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 import tornadofx.*
-import java.util.*
-import java.util.logging.Handler
-import kotlin.concurrent.fixedRateTimer
 
 
 class TestView : View() {
@@ -45,6 +47,14 @@ class TestView : View() {
         if(number == 25) {
             val time = System.currentTimeMillis() - timeBegin
             labelTime.text = (time / 1000).toString()
+            transaction {
+                ResultEntry.new {
+                    this.userId = UserData.id!!
+                    this.result = time.toFloat()
+                    this.date = DateTime()
+                }
+            }
+
             loginController.replace()
         }
         if (number== currentNumber) {

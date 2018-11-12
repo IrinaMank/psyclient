@@ -1,9 +1,12 @@
+package enity
+
 data class User(
         val login: String = "",
         val password: String = "",
         val firstName: String = "",
         val lastName: String = "",
-        //val birthday: String = "27-Jun-2018",
-        val sex: Boolean = true,
-        val employment: String = ""
+        val age: Int = 0,
+        val sex: Int = 0,
+        val employment: String = "",
+        val userType: Int = 0
 )

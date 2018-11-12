@@ -1,35 +1,9 @@
-import javafx.application.Application
+package enity
+
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.transactions.transaction
-import tornadofx.*
-import view.InitView
-import view.LoginView
-
-class LoginApp : App(InitView::class) {
-    override fun init() {
-        super.init()
-        Database.connect(
-                "jdbc:mysql://db4free.net:3306/mnp_kotlin_db", driver = "com.mysql.jdbc.Driver",
-                user = "imenidebora", password = "12345678")
-        transaction {
-//        if (UserEntry.count() == 0) {
-//            UserEntry.new {
-//                text = "Thank you for stopping by!"
-//                creation = DateTime.now()
-//            }
-//        }
-        }
-    }
-}
-
-fun main(args: Array<String>) {
-    Application.launch(LoginApp::class.java, *args)
-
-}
 
 object Users: IntIdTable() {
     val login = varchar("login", 20)
@@ -39,8 +13,8 @@ object Users: IntIdTable() {
     val age = integer("age")
     val sex = integer("sex")
     val employment = varchar("employment", 30)
+    val userType = integer("userType")
 }
-
 
 class UserEntry(id: EntityID<Int>): IntEntity(id) {
     companion object: IntEntityClass<UserEntry>(Users)
@@ -51,4 +25,5 @@ class UserEntry(id: EntityID<Int>): IntEntity(id) {
     var age by Users.age
     var sex by Users.sex
     var employment by Users.employment
+    var userType by Users.userType
 }
