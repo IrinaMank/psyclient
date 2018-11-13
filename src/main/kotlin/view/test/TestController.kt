@@ -1,6 +1,6 @@
 package view.test
 
-import view.LoginView
+import view.login.LoginView
 import tornadofx.Controller
 
 class TestController: Controller()  {

@@ -1,9 +1,8 @@
 package view
 
-import com.google.gson.Gson
-import enity.User
-import javafx.scene.control.TextField
 import tornadofx.*
+import view.login.LoginView
+import view.register.RegisterView
 
 class InitView : View() {
 

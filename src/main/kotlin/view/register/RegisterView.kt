@@ -1,12 +1,10 @@
-package view
+package view.register
 
-import com.google.gson.Gson
-import database.MnpDatabase
 import enity.User
-import javafx.scene.control.ListView
 import javafx.scene.control.SelectionMode
 import javafx.scene.control.TextField
 import tornadofx.*
+import view.UserView
 
 class RegisterView : View() {
     var firstNameField: TextField by singleAssign()
@@ -16,6 +14,15 @@ class RegisterView : View() {
     var age: TextField by singleAssign()
     var sex = listview(listOf("Male","Female").observable())
     var employment: TextField by singleAssign()
+
+    var invalidMsg = hbox {
+        hbox {
+            //isVisible = false
+            label("Login")
+        }
+    }
+
+    private val controller: RegisterController by inject()
 
     override val root = vbox {
         hbox {
@@ -47,7 +54,6 @@ class RegisterView : View() {
             employment = textfield()
         }
 
-
         hbox {
             this.add(sex)
             sex.selectionModel.selectionMode = SelectionMode.SINGLE
@@ -55,21 +61,26 @@ class RegisterView : View() {
 
         button("REGISTER") {
             useMaxWidth = true
-            setOnAction { login() }
+            setOnAction {
+                invalidMsg.removeFromParent()
+                var result = false
+                runAsyncWithProgress {
+                    val user = User(firstName = firstNameField.text, lastName = lastNameField.text, login = loginField.text, password = passwordField.text,
+                            age = age.text.toInt(), employment = employment.text, sex = 1)
+                    result = controller.register(user)
+                }.setOnSucceeded {
+                    if (result) {
+                        replaceWith(UserView::class)
+                    } else {
+                        invalidAuth()
+                    }
+                }
+            }
         }
     }
 
-    fun login() {
-        //ToDO: if already exists
-        val user = User(firstName = firstNameField.text, lastName = lastNameField.text, login = loginField.text, password = passwordField.text,
-                age = age.text.toInt(), employment = employment.text, sex = 1)
-        MnpDatabase().addUser(user)
-        val bodyJson = Gson().toJson(user)
-//        val (request, response, result) = Fuel.post("https://psykotlin.herokuapp.com/register")
-//                .body(bodyJson)
-//                .responseString()
-//        result.fold({ print("dlf") }, {print("${it.response}")})
-        replaceWith(UserView::class)
+    private fun invalidAuth() {
+        root.add(invalidMsg)
     }
 
 }
