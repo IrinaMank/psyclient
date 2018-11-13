@@ -1,5 +1,6 @@
 package view.login
 
+import javafx.geometry.Pos
 import tornadofx.*
 import javafx.scene.control.TextField
 import view.UserView
@@ -17,17 +18,22 @@ class LoginView : View() {
         }
     }
 
-    override val root = vbox {
+    override val root = vbox(10.0) {
+        prefWidth = 800.0
+        prefHeight = 600.0
+        alignment = Pos.CENTER
         hbox {
+            alignment = Pos.CENTER
             label("Login")
-            loginField = textfield()
+            loginField = textfield("imenidebora")
         }
         hbox {
+            alignment = Pos.CENTER
             label("Password")
-            passwordField = textfield()
+            passwordField = textfield("123456")
         }
         button("LOGIN") {
-            useMaxWidth = true
+            isWrapText = true
             setOnAction {
                 invalidMsg.removeFromParent()
                 var result = false

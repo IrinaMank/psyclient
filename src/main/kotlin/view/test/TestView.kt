@@ -1,67 +1,99 @@
 package view.test
 
-import enity.ResultEntry
-import enity.Results
+import enity.Result
+import javafx.geometry.Pos
 import javafx.scene.control.Button
-import org.jetbrains.exposed.sql.Date
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.DateTime
+import javafx.scene.layout.ColumnConstraints
 import tornadofx.*
 
-
 class TestView : View() {
-    val numbers = (1..25).toList().shuffled()
-    val labelTime = label("0")
-    val textview = text("1")
+    val MAX_TABLE_COUNT = 5
+    val TABLE_SIZE = 5
+    val numbers = (1..25).toList()
+    val labelTime = label("Time: ")
     var currentNumber = 1
+    val currentNumLabel = text("Pick number: $currentNumber")
+    //    var seconds: Int  by Delegates.observable(0) {
+//        prop, old, new ->
+//        labelTime.text = new.toString()
+//    }
     val loginController: TestController by inject()
-    val timeBegin = System.currentTimeMillis()
+    var timeBegin = System.currentTimeMillis()
+    var tableNumber = 1
+    var mistakes = 0
 
+    //val timer = timer(period = 1000, action = { seconds++ })
+
+    val testTable = gridpane{
+        alignment = Pos.CENTER
+        setPrefSize(300.0,300.0)
+        val column =  ColumnConstraints()
+        column.prefWidth = 60.0
+        //columnConstraints.addAll(column, column, column,column,column)
+    }
 
 
     override val root = vbox {
-
-        label {
-            text = "Pick number: "
-        }
-        this.add(textview)
+        prefWidth = 800.0
+        prefHeight = 600.0
+        alignment = Pos.CENTER
+//        label {
+//            text = "Pick number: $currentNumber"
+//        }
         this.add(labelTime)
-        gridpane {
-
-            for (r in 0 until 5) {
-                for (c in 0 until 5) {
-                    val number = numbers[5 * r + c]
-                    val button = Button(number.toString())
-                    button.setOnMousePressed {
-                        button.textFill = javafx.scene.paint.Color.RED
-                    }
-                    button.setOnMouseReleased { onClick(number, button) }
-                    this.add(button, c, r)
-                }
-            }
-        }
+        fillNumbers()
+        add(testTable)
     }
 
     fun onClick(number: Int, button: Button) {
-        if(number == 25) {
-            val time = System.currentTimeMillis() - timeBegin
-            labelTime.text = (time / 1000).toString()
-            transaction {
-                ResultEntry.new {
-                    this.userId = UserData.id!!
-                    this.result = time.toFloat()
-                    this.date = DateTime()
-                }
+        if (currentNumber == TABLE_SIZE * TABLE_SIZE) {
+            if (tableNumber == MAX_TABLE_COUNT) {
+                clearAll()
+                val time = System.currentTimeMillis() - timeBegin
+                loginController.uploadResult(Result(time.toFloat(), mistakes))
+                loginController.replace()
             }
-
-            loginController.replace()
+            fillNumbers()
+            tableNumber++
         }
-        if (number== currentNumber) {
-            textview.text = (number + 1).toString()
-            currentNumber++
-        }
+        currentNumLabel.text = (number + 1).toString()
+        currentNumber++
         button.textFill = javafx.scene.paint.Color.BLACK
+    }
+
+    fun fillNumbers() {
+        testTable.getChildList()?.clear()
+        val newNumbers = numbers.shuffled()
+        for (r in 0 until 5) {
+            for (c in 0 until 5) {
+                val number = newNumbers[5 * r + c]
+                val button = Button(number.toString())
+                button.setPrefSize(60.0, 60.0)
+                button.setOnMousePressed {
+                    if (number != currentNumber) {
+                        button.textFill = javafx.scene.paint.Color.RED
+                    }
+                }
+                button.setOnMouseReleased {
+                    if (number == currentNumber) {
+                        onClick(number, button)
+                    } else {
+                        mistakes++
+                        button.textFill = javafx.scene.paint.Color.BLACK
+                    }
+                }
+                testTable.add(button, c, r)
+            }
+        }
+        timeBegin = System.currentTimeMillis()
+    }
+
+
+    fun clearAll() {
+        tableNumber = 1
+        labelTime.text = "0"
+        currentNumber = 1
+        mistakes = 0
     }
 
 }

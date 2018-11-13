@@ -60,7 +60,7 @@ class RegisterView : View() {
         }
 
         button("REGISTER") {
-            useMaxWidth = true
+            isWrapText = true
             setOnAction {
                 invalidMsg.removeFromParent()
                 var result = false

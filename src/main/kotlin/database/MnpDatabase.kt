@@ -1,9 +1,9 @@
 package database
 
-import enity.User
-import enity.UserEntry
-import enity.Users
+import enity.*
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -48,4 +48,26 @@ class MnpDatabase {
         }
         return user
     }
+
+    fun getAverageResult(): Result {
+        var averageTime: Float = 0f
+        var averageMistakes = 0
+        transaction {
+            averageTime = Results.selectAll().map { it[Results.time] }.average().toFloat()
+            averageMistakes = Results.selectAll().map { it[Results.mistakes] }.average().toInt()
+        }
+        return Result(averageTime, averageMistakes)
+    }
+
+    fun getUserAverage(id: Int): Result {
+        var averageTime: Float = 0f
+        var averageMistakes = 0
+        transaction {
+            val results = Results.select{ Results.userId eq id }
+            averageTime = results.map { it[Results.time] }.average().toFloat()
+            averageMistakes = results.map { it[Results.mistakes] }.average().toInt()
+        }
+        return Result(averageTime, averageMistakes)
+    }
+
 }
