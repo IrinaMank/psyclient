@@ -1,3 +1,5 @@
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import javafx.application.Application
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
@@ -10,9 +12,19 @@ import view.InitView
 class LoginApp : App(InitView::class) {
     override fun init() {
         super.init()
-        Database.connect(
-                "jdbc:mysql://db4free.net:3306/mnp_kotlin_db", driver = "com.mysql.jdbc.Driver",
-                user = "imenidebora", password = "12345678")
+
+
+        val config = HikariConfig()
+        config.jdbcUrl = "jdbc:mysql://db4free.net:3306/mnp_kotlin_db"
+        config.username = "imenidebora"
+        config.password = "12345678"
+        config.addDataSourceProperty("cachePrepStmts", "true")
+        config.addDataSourceProperty("prepStmtCacheSize", "250")
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048")
+
+        val ds = HikariDataSource(config)
+
+        Database.connect(ds)
     }
 }
 
