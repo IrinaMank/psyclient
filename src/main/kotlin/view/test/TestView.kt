@@ -40,6 +40,7 @@ class TestView : View() {
 //        label {
 //            text = "Pick number: $currentNumber"
 //        }
+        this.add(currentNumLabel)
         this.add(labelTime)
         fillNumbers()
         add(testTable)
@@ -56,8 +57,8 @@ class TestView : View() {
             fillNumbers()
             tableNumber++
         }
-        currentNumLabel.text = (number + 1).toString()
         currentNumber++
+        currentNumLabel.text = "Pick number: $currentNumber"
         button.textFill = javafx.scene.paint.Color.BLACK
     }
 
