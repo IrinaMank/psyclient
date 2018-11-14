@@ -7,9 +7,7 @@ class InterpretationController : Controller() {
 
     fun getInterpretation(): Boolean? {
         if (UserData.id != null) {
-            val average = DbProvider.getDb().getAverageResult()
-            val userResult = DbProvider.getDb().getUserAverage(UserData.id!!)
-            return userResult.mistakes <= average.mistakes
+            return true
         } else {
             return null
         }

@@ -9,7 +9,7 @@ import tornadofx.*
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
     val TABLE_SIZE = 5
-    val numbers = (1..25).toList()
+    val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
     val labelTime = label("Time: ")
     var currentNumber = 1
     val currentNumLabel = text("Pick number: $currentNumber")
@@ -51,7 +51,7 @@ class TestView : View() {
             if (tableNumber == MAX_TABLE_COUNT) {
                 clearAll()
                 val time = System.currentTimeMillis() - timeBegin
-                loginController.uploadResult(Result(time.toFloat(), mistakes))
+                //loginController.uploadResult(Result(time.toFloat(), mistakes))
                 loginController.replace()
             }
             fillNumbers()

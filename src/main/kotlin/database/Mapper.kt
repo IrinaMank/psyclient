@@ -1,7 +1,11 @@
 package database
 
+import enity.Result
+import enity.ResultEntry
 import enity.User
 import enity.UserEntry
+import org.jetbrains.exposed.sql.Date
+import org.joda.time.DateTime
 
 class Mapper {
 

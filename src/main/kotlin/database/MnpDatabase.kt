@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 
 
 class MnpDatabase {
@@ -49,25 +50,38 @@ class MnpDatabase {
         return user
     }
 
-    fun getAverageResult(): Result {
-        var averageTime: Float = 0f
-        var averageMistakes = 0
+    fun uploadResult(result: Result) {
         transaction {
-            averageTime = Results.selectAll().map { it[Results.time] }.average().toFloat()
-            averageMistakes = Results.selectAll().map { it[Results.mistakes] }.average().toInt()
+            ResultEntry.new {
+                this.userId = UserData.id!!//ToDo: remove !!
+                this.time1 = result.time[0]
+                this.time2 = result.time[1]
+                this.time3 = result.time[2]
+                this.time4 = result.time[3]
+                this.time5 = result.time[4]
+                this.date = DateTime()
+            }
         }
-        return Result(averageTime, averageMistakes)
     }
 
-    fun getUserAverage(id: Int): Result {
-        var averageTime: Float = 0f
-        var averageMistakes = 0
-        transaction {
-            val results = Results.select{ Results.userId eq id }
-            averageTime = results.map { it[Results.time] }.average().toFloat()
-            averageMistakes = results.map { it[Results.mistakes] }.average().toInt()
-        }
-        return Result(averageTime, averageMistakes)
-    }
+//
+//    fun getAverageResult(): Result {
+//        var averageTime: Float = 0f
+//        var averageMistakes = 0
+//        transaction {
+//            averageTime = Results.selectAll().map { it[Results.time1]+it[Results.time2]+it[Results.time3]+it[Results.time4]+it[Results.time5] }.average().toFloat()
+//        }
+//        return Result(averageTime, averageMistakes)
+//    }
+//
+//    fun getUserAverage(id: Int): Result {
+//        var averageTime: Float = 0f
+//        var averageMistakes = 0
+//        transaction {
+//            val results = Results.select{ Results.userId eq id }
+//            averageTime = results.map { it[Results.time1]+it[Results.time2]+it[Results.time3]+it[Results.time4]+it[Results.time5] }.average().toFloat()
+//        }
+//        return Result(averageTime, averageMistakes)
+//    }
 
 }

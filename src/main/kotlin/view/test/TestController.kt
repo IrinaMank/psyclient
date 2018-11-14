@@ -1,5 +1,6 @@
 package view.test
 
+import database.DbProvider
 import enity.Result
 import enity.ResultEntry
 import javafx.beans.value.ObservableObjectValue
@@ -10,23 +11,22 @@ import tornadofx.Controller
 import tornadofx.observable
 import view.ResultView
 class TestController: Controller()  {
+    private val db = DbProvider.getDb()
     val test: TestView by inject()
-    val result = observable<Result>("time")
+    val result = Result()
+    val resultObservable = observable<Result>("time")
 
     fun replace() {
         test.replaceWith(ResultView::class)
     }
 
+    fun addTimeToResult(time: Float) {
+        result.time.add(time)
+    }
+
     fun uploadResult(result: Result) {
-        transaction {
-            ResultEntry.new {
-                this.userId = UserData.id!!//ToDo: remove !!
-                this.result = result.time
-                this.mistakes = result.mistakes
-                this.date = DateTime()
-            }
-        }
-        this.result.set(result)
+        db.uploadResult(result)
+        this.resultObservable.set(result)
     }
 
 }
