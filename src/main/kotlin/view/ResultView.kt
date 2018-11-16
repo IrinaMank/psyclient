@@ -2,6 +2,7 @@ package view
 
 import javafx.geometry.Pos
 import tornadofx.*
+import view.interpretation.InterpretationView
 import view.test.TestController
 
 class ResultView : View() {
@@ -14,6 +15,12 @@ class ResultView : View() {
         alignment = Pos.CENTER
         label {
             text = "You time: ${result.time}"
+        }
+        button {
+            text = "Watch interpretation"
+            setOnAction {
+                replaceWith(InterpretationView::class)
+            }
         }
     }
 }

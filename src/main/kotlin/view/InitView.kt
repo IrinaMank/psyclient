@@ -20,6 +20,9 @@ class InitView : View() {
             isWrapText = true
             setOnAction { replaceWith(RegisterView::class) }
         }
-
+        button("Result") {
+            isWrapText = true
+            setOnAction { replaceWith(ResultView::class) }
+        }
     }
 }
