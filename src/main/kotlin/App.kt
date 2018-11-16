@@ -1,5 +1,6 @@
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import enity.Results
 import javafx.application.Application
 import javafx.stage.Stage
 import org.jetbrains.exposed.dao.EntityID
@@ -7,6 +8,8 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
 import view.InitView
 import kotlin.concurrent.thread

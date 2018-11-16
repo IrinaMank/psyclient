@@ -14,7 +14,7 @@ class TestController: Controller()  {
     private val db = DbProvider.getDb()
     val test: TestView by inject()
     val result = Result()
-    val resultObservable = observable<Result>("time")
+    var resultObservable = Result()
 
     fun replace() {
         test.replaceWith(ResultView::class)
@@ -26,7 +26,7 @@ class TestController: Controller()  {
 
     fun uploadResult(result: Result) {
         db.uploadResult(result)
-        this.resultObservable.set(result)
+        this.resultObservable = result
     }
 
 }

@@ -4,11 +4,14 @@ import enity.Result
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
+import org.joda.time.DateTime
 import tornadofx.*
+import view.ResultView
+import java.sql.Time
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
-    val TABLE_SIZE = 5
+    val TABLE_SIZE = 2
     val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
     val labelTime = label("Time: ")
     var currentNumber = 1
@@ -21,6 +24,7 @@ class TestView : View() {
     var timeBegin = System.currentTimeMillis()
     var tableNumber = 1
     var mistakes = 0
+    val result = Result()
 
     //val timer = timer(period = 1000, action = { seconds++ })
 
@@ -47,15 +51,20 @@ class TestView : View() {
     }
 
     fun onClick(number: Int, button: Button) {
-        if (currentNumber == TABLE_SIZE * TABLE_SIZE) {
+        if (currentNumber >= TABLE_SIZE * TABLE_SIZE) {
             if (tableNumber == MAX_TABLE_COUNT) {
                 clearAll()
                 val time = System.currentTimeMillis() - timeBegin
-                //loginController.uploadResult(Result(time.toFloat(), mistakes))
-                loginController.replace()
+                result.time.add(time.toFloat())
+                loginController.uploadResult(result)
+                replaceWith(ResultView::class)
             }
+            val time = System.currentTimeMillis() - timeBegin
+            result.time.add(time.toFloat())
             fillNumbers()
+            currentNumber = 0
             tableNumber++
+            timeBegin = System.currentTimeMillis()
         }
         currentNumber++
         currentNumLabel.text = "Pick number: $currentNumber"
@@ -65,9 +74,9 @@ class TestView : View() {
     fun fillNumbers() {
         testTable.getChildList()?.clear()
         val newNumbers = numbers.shuffled()
-        for (r in 0 until 5) {
-            for (c in 0 until 5) {
-                val number = newNumbers[5 * r + c]
+        for (r in 0 until TABLE_SIZE) {
+            for (c in 0 until TABLE_SIZE) {
+                val number = newNumbers[TABLE_SIZE * r + c]
                 val button = Button(number.toString())
                 button.setPrefSize(60.0, 60.0)
                 button.setOnMousePressed {
