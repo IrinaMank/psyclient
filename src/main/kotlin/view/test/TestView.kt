@@ -6,7 +6,9 @@ import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
 import org.joda.time.DateTime
 import tornadofx.*
+import view.InitView
 import view.ResultView
+import view.UserView
 import java.sql.Time
 
 class TestView : View() {
@@ -48,6 +50,12 @@ class TestView : View() {
         this.add(labelTime)
         fillNumbers()
         add(testTable)
+
+        button("back to main menu") {
+            setOnAction {
+                replaceWith(UserView::class)
+            }
+        }
     }
 
     fun onClick(number: Int, button: Button) {

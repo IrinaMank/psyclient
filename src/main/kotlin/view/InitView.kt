@@ -3,7 +3,9 @@ package view
 import javafx.geometry.Pos
 import tornadofx.*
 import view.login.LoginView
+import view.psychologist.AllResultsView
 import view.register.RegisterView
+import view.statistics.StatisticsView
 
 class InitView : View() {
 
@@ -22,7 +24,7 @@ class InitView : View() {
         }
         button("Result") {
             isWrapText = true
-            setOnAction { replaceWith(ResultView::class) }
+            setOnAction { replaceWith(AllResultsView::class) }
         }
     }
 }

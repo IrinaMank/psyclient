@@ -6,7 +6,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 
 object Results: IntIdTable() {
-    val userId = integer("userId")
+    val user =  reference("user", Users)
     val time1 = float("time1")
     val time2 = float("time2")
     val time3 = float("time3")
@@ -17,7 +17,7 @@ object Results: IntIdTable() {
 
 class ResultEntry(id: EntityID<Int>): IntEntity(id) {
     companion object: IntEntityClass<ResultEntry>(Results)
-    var userId by Results.userId
+    var user by UserEntry referencedOn Results.user
     var time1 by Results.time1
     var time2 by Results.time2
     var time3 by Results.time3

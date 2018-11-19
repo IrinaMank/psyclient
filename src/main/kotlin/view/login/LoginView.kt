@@ -3,6 +3,7 @@ package view.login
 import javafx.geometry.Pos
 import tornadofx.*
 import javafx.scene.control.TextField
+import view.InitView
 import view.UserView
 
 
@@ -47,6 +48,12 @@ class LoginView : View() {
                     }
                 }
 
+            }
+        }
+
+        button("back") {
+            setOnAction {
+                replaceWith(InitView::class)
             }
         }
     }

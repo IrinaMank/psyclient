@@ -53,7 +53,7 @@ class MnpDatabase {
     fun uploadResult(result: Result) {
         transaction {
             ResultEntry.new {
-                this.userId = UserData.id!!//ToDo: remove !!
+                this.user = UserEntry.find { Users.id eq UserData.id }.first()//ToDo: remove !!
                 this.time1 = result.time[0]
                 this.time2 = result.time[1]
                 this.time3 = result.time[2]
@@ -62,6 +62,37 @@ class MnpDatabase {
                 this.date = DateTime()
             }
         }
+    }
+
+    fun getPersonalStatistics(firstName: String, lastName: String): List<Result> {
+        var userResults: List<Result> = arrayListOf<Result>()
+        transaction {
+            val user = UserEntry.find { (Users.firstName eq firstName) and (Users.lastName eq lastName) }.toList()
+            if (user.isEmpty()) return@transaction
+            userResults = user[0].results.map {
+                    mapper.resultFromEntryToDomain(it)
+            }
+//            userResults = (Users innerJoin Results).slice(Results.columns).select {
+//                Users.firstName.eq(firstName) and Users.lastName.eq(lastName)
+//            }.map {
+//                mapper.resultFromEntryToDomain(it)
+//            }
+        }
+        return userResults
+    }
+
+    fun getAllStatistics(): List<PersonalResult>  {
+        val allResults: MutableList<PersonalResult> = mutableListOf()
+        transaction {
+            UserEntry.all().forEach {
+                val name = it.firstName+" "+it.lastName
+                it.results.firstOrNull()?.let {
+                    val result  = mapper.resultFromEntryToDomain(it)
+                    allResults.add(PersonalResult(name, result))
+                }
+            }
+        }
+        return allResults
     }
 
 //
@@ -78,7 +109,7 @@ class MnpDatabase {
 //        var averageTime: Float = 0f
 //        var averageMistakes = 0
 //        transaction {
-//            val results = Results.select{ Results.userId eq id }
+//            val results = Results.select{ Results.user eq id }
 //            averageTime = results.map { it[Results.time1]+it[Results.time2]+it[Results.time3]+it[Results.time4]+it[Results.time5] }.average().toFloat()
 //        }
 //        return Result(averageTime, averageMistakes)

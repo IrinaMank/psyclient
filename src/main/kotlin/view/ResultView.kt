@@ -22,5 +22,11 @@ class ResultView : View() {
                 replaceWith(InterpretationView::class)
             }
         }
+
+        button("back to main menu") {
+            setOnAction {
+                replaceWith(UserView::class)
+            }
+        }
     }
 }

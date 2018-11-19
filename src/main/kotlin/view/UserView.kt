@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import view.test.TestView
 import tornadofx.*
 import view.interpretation.InterpretationView
+import view.statistics.StatisticsView
 
 class UserView : View() {
 
@@ -20,7 +21,7 @@ class UserView : View() {
         button {
             text = "View my results"
             setOnAction {
-                replaceWith(InterpretationView::class)
+                replaceWith(StatisticsView::class)
             }
         }
 

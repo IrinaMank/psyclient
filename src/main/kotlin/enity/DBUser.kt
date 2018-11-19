@@ -14,6 +14,7 @@ object Users: IntIdTable() {
     val sex = integer("sex")
     val employment = varchar("employment", 30)
     val userType = integer("userType")
+
 }
 
 class UserEntry(id: EntityID<Int>): IntEntity(id) {
@@ -26,4 +27,5 @@ class UserEntry(id: EntityID<Int>): IntEntity(id) {
     var sex by Users.sex
     var employment by Users.employment
     var userType by Users.userType
+    val results by ResultEntry referrersOn Results.user
 }

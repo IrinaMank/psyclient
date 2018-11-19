@@ -4,6 +4,7 @@ import enity.User
 import javafx.scene.control.SelectionMode
 import javafx.scene.control.TextField
 import tornadofx.*
+import view.InitView
 import view.UserView
 
 class RegisterView : View() {
@@ -75,6 +76,12 @@ class RegisterView : View() {
                         invalidAuth()
                     }
                 }
+            }
+        }
+
+        button("back") {
+            setOnAction {
+                replaceWith(InitView::class)
             }
         }
     }
