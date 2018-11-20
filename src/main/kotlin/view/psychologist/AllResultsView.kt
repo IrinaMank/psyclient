@@ -4,11 +4,9 @@ import database.DbProvider
 import javafx.geometry.Pos
 import javafx.scene.control.TextField
 import tornadofx.*
-import view.UserView
+import view.mainmenu.UserView
 import view.getInterpretation
 import view.persistenceInText
-import view.statistics.PersonalStatistics
-import view.statistics.StatisticsController
 import view.workabilityInText
 
 class AllResultsView : View() {
@@ -51,6 +49,12 @@ class AllResultsView : View() {
                 value { it.value.result.getInterpretation().persistence.persistenceInText() }
             }
 
+        }
+
+        button("back") {
+            setOnAction {
+                replaceWith(UserView::class)
+            }
         }
     }
 }

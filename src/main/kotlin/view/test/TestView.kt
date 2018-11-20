@@ -4,12 +4,9 @@ import enity.Result
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
-import org.joda.time.DateTime
 import tornadofx.*
-import view.InitView
 import view.ResultView
-import view.UserView
-import java.sql.Time
+import view.mainmenu.UserView
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5

@@ -1,5 +1,6 @@
+import enity.User
+
 object UserData {
-    var id: Int? = null
-    var type: Int? = null
+    var user: User? = null
 
 }

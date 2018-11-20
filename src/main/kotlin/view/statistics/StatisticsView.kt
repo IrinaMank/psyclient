@@ -1,10 +1,8 @@
 package view.statistics
 
-import javafx.geometry.Pos
 import javafx.scene.control.TextField
 import tornadofx.*
-import view.UserView
-import view.interpretation.InterpretationView
+import view.mainmenu.UserView
 
 class StatisticsView : View() {
 
@@ -28,7 +26,7 @@ class StatisticsView : View() {
                 text = "Watch statistics"
                 setOnAction {
                     controller.loadPersonalStatistics(firstNameField.text, lastNameField.text)
-                    replaceWith(PersonalStatistics::class)
+                    find<PersonalStatistics>().openModal(block = true)
                 }
             }
 

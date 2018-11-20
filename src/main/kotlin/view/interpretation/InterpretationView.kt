@@ -4,8 +4,7 @@ import enity.Interpretation
 import enity.Result
 import javafx.geometry.Pos
 import tornadofx.*
-import view.InitView
-import view.UserView
+import view.mainmenu.UserView
 import view.getInterpretation
 import view.test.TestController
 

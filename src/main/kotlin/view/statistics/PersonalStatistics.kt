@@ -1,10 +1,7 @@
 package view.statistics
 
-import enity.Result
 import javafx.geometry.Pos
 import tornadofx.*
-import view.UserView
-import view.interpretation.InterpretationView
 
 class PersonalStatistics : View() {
 
@@ -16,7 +13,7 @@ class PersonalStatistics : View() {
         prefHeight = 600.0
         alignment = Pos.CENTER
 
-        tableview(controller.statisticsList.observable()) {
+        tableview(controller.statisticsList) {
             column("Time 1", String::class)  {
                 value { it.value.time[0] }
             }

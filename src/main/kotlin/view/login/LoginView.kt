@@ -3,12 +3,12 @@ package view.login
 import javafx.geometry.Pos
 import tornadofx.*
 import javafx.scene.control.TextField
-import view.InitView
-import view.UserView
+import view.mainmenu.InitView
+import view.mainmenu.UserView
 
 
 class LoginView : View() {
-    val loginController: LoginController by inject()
+    private val loginController: LoginController by inject()
 
     var loginField: TextField by singleAssign()
     var passwordField: TextField by singleAssign()
@@ -19,19 +19,19 @@ class LoginView : View() {
         }
     }
 
-    override val root = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
+    override val root = vbox{
+        addClass(Styles.wrapper)
         hbox {
             alignment = Pos.CENTER
-            label("Login")
-            loginField = textfield("imenidebora")
-        }
-        hbox {
-            alignment = Pos.CENTER
-            label("Password")
-            passwordField = textfield("123456")
+            spacing = 10.0
+            vbox {
+                label("Login")
+                label("Password")
+            }
+            vbox {
+                loginField = textfield("imenidebora")
+                passwordField = textfield("123456")
+            }
         }
         button("LOGIN") {
             isWrapText = true

@@ -4,8 +4,8 @@ import enity.User
 import javafx.scene.control.SelectionMode
 import javafx.scene.control.TextField
 import tornadofx.*
-import view.InitView
-import view.UserView
+import view.mainmenu.InitView
+import view.mainmenu.UserView
 
 class RegisterView : View() {
     var firstNameField: TextField by singleAssign()

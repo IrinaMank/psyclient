@@ -3,6 +3,7 @@ package view
 import javafx.geometry.Pos
 import tornadofx.*
 import view.interpretation.InterpretationView
+import view.mainmenu.UserView
 import view.test.TestController
 
 class ResultView : View() {

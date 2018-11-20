@@ -53,7 +53,7 @@ class MnpDatabase {
     fun uploadResult(result: Result) {
         transaction {
             ResultEntry.new {
-                this.user = UserEntry.find { Users.id eq UserData.id }.first()//ToDo: remove !!
+                this.user = UserEntry.find { Users.id eq UserData.user?.id }.first()//ToDo: remove !!
                 this.time1 = result.time[0]
                 this.time2 = result.time[1]
                 this.time3 = result.time[2]
@@ -64,7 +64,7 @@ class MnpDatabase {
         }
     }
 
-    fun getPersonalStatistics(firstName: String, lastName: String): List<Result> {
+    fun getPersonalStatisticsByName(firstName: String, lastName: String): List<Result> {
         var userResults: List<Result> = arrayListOf<Result>()
         transaction {
             val user = UserEntry.find { (Users.firstName eq firstName) and (Users.lastName eq lastName) }.toList()
@@ -77,6 +77,18 @@ class MnpDatabase {
 //            }.map {
 //                mapper.resultFromEntryToDomain(it)
 //            }
+        }
+        return userResults
+    }
+
+    fun getPersonalStatisticsById(id: Int) : List<Result> {
+        var userResults: List<Result> = arrayListOf<Result>()
+        transaction {
+            val user = UserEntry.find { Users.id eq id }.toList()
+            if (user.isEmpty()) return@transaction
+            userResults = user[0].results.map {
+                mapper.resultFromEntryToDomain(it)
+            }
         }
         return userResults
     }

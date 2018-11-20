@@ -11,8 +11,7 @@ class LoginController: Controller() {
         var isValid = false
         val user =  db.login(login, password)
         user?.let {
-            UserData.id = user.id
-            UserData.type = user.userType
+            UserData.user = it
             isValid = true
         }
         return isValid

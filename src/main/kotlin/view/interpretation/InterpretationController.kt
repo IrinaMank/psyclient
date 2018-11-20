@@ -15,7 +15,7 @@ class InterpretationController : Controller() {
         var workDegree = result.time[0] / workEffect
         var vinoslivost = result.time.last()/ workEffect
 
-        if (UserData.id != null) {
+        if (UserData.user?.id != null) {
             return true
         } else {
             return null

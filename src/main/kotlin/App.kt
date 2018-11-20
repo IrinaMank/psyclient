@@ -1,29 +1,22 @@
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import enity.Results
 import javafx.application.Application
 import javafx.stage.Stage
-import org.jetbrains.exposed.dao.EntityID
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
-import view.InitView
-import kotlin.concurrent.thread
+import view.mainmenu.InitView
 
-class LoginApp : App(InitView::class) {
+class LoginApp : App(InitView::class, Styles::class) {
 
     override fun start(stage: Stage) {
         stage.isResizable = false
+
         super.start(stage)
     }
 
     override fun init() {
         super.init()
-
+        reloadStylesheetsOnFocus()
             val config = HikariConfig()
             config.jdbcUrl = "jdbc:mysql://db4free.net:3306/mnp_kotlin_db"
             config.username = "imenidebora"
