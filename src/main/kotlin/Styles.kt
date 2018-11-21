@@ -34,7 +34,7 @@ class Styles : Stylesheet() {
             wrapText = true
 
             add(header) {
-                fontSize = 28.px
+                fontSize = 22.px
                 textAlignment = TextAlignment.CENTER
             }
         }

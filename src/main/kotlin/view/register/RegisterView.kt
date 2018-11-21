@@ -1,6 +1,9 @@
 package view.register
 
 import enity.User
+import javafx.beans.property.SimpleStringProperty
+import javafx.collections.FXCollections
+import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.text.TextAlignment
 import tornadofx.*
@@ -13,8 +16,10 @@ class RegisterView : View() {
     var loginField: TextField by singleAssign()
     var passwordField: PasswordField by singleAssign()
     var birthday: DatePicker by singleAssign()
-    var employment: TextField by singleAssign()
+    val selectedEmployment = SimpleStringProperty()
     private val sexGroup = ToggleGroup()
+    val employments = FXCollections.observableArrayList("Школьник",
+            "Студент","Работник")
 
     var invalidMsg = label("") {
         textAlignment = TextAlignment.CENTER
@@ -23,68 +28,70 @@ class RegisterView : View() {
     private val controller: RegisterController by inject()
 
     override val root = form {
-        fieldset("Personal Info") {
-            field("First Name") {
+        fieldset("Персональная информация") {
+            field("Имя") {
                 firstNameField = textfield()
             }
-            field("Last Name") {
+            field("Фамилия") {
                 lastNameField = textfield()
             }
-            field("Birthday") {
-                birthday = datepicker() {
-                }
+            field("Дата рождения") {
+                birthday = datepicker()
             }
-            field("Sex"){
+            field("Пол"){
                 hbox(10.0) {
                     radiobutton("Female", sexGroup).userData = 1
                     radiobutton("Male", sexGroup).userData  = 0
                 }
             }
-            field("Employment") {
-                employment = textfield()
+            field("Занятость") {
+                combobox(selectedEmployment, employments)
             }
         }
 
-        fieldset("Auth") {
-            field("Login")  {
+        fieldset("Аутентификация") {
+            field("Логин")  {
                 loginField = textfield()
             }
-            field("Password")  {
+            field("Пароль")  {
                 passwordField = passwordfield()
             }
         }
 
         add(invalidMsg)
-        button("Зарегистрироваться") {
-            addClass(Styles.navBtn)
-            setOnAction {
-                invalidMsg.removeFromParent()
-                var result = false
-                runAsyncWithProgress {
-                    val user = User(firstName = firstNameField.text, lastName = lastNameField.text, login = loginField.text, password = passwordField.text,
-                            birthday = birthday.value, employment = employment.text, sex = getSex())
-                    result = controller.register(user)
-                }.setOnSucceeded {
-                    if (result) {
-                        clear()
-                        replaceWith(UserView::class)
-                    } else {
-                        invalidAuth()
+        vbox {
+            alignment = Pos.CENTER
+            button("Зарегистрироваться") {
+                addClass(Styles.navBtn)
+                setOnAction {
+                    invalidMsg.removeFromParent()
+                    var result = false
+                    runAsyncWithProgress {
+                        val user = User(firstName = firstNameField.text, lastName = lastNameField.text, login = loginField.text, password = passwordField.text,
+                                birthday = birthday.value, employment = selectedEmployment.value, sex = getSex())
+                        result = controller.register(user)
+                    }.setOnSucceeded {
+                        if (result) {
+                            clear()
+                            replaceWith(UserView::class)
+                        } else {
+                            invalidAuth()
+                        }
                     }
                 }
             }
-        }
 
-        button("back") {
-            addClass(Styles.navBtn)
-            setOnAction {
-                replaceWith(InitView::class)
+            button("Назад") {
+                addClass(Styles.navBtn)
+                setOnAction {
+                    replaceWith(InitView::class)
+                }
             }
         }
     }
 
     private fun invalidAuth() {
-        invalidMsg.text = "Register failed, try again"
+        invalidMsg.text = "ЧТо-то пошло не так, попробуйте еще раз"
     }
 
     private fun getSex() =
@@ -99,7 +106,6 @@ class RegisterView : View() {
         lastNameField.text = ""
         loginField.text = ""
         passwordField.text = ""
-        employment.text = ""
     }
 
 }

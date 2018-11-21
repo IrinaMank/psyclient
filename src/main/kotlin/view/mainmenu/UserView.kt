@@ -16,14 +16,14 @@ class UserView : View() {
         addClass(Styles.wrapper)
         button {
             addClass(Styles.navBtn)
-            text = "Attempt view.test"
+            text = "Пройти тест"
             setOnAction {
                 replaceWith(TestView::class)
             }
         }
         button {
             addClass(Styles.navBtn)
-            text = "View my results"
+            text = "Мои результаты"
             setOnAction {
                 openMyStatistics()
             }
@@ -31,16 +31,23 @@ class UserView : View() {
 
         button {
             addClass(Styles.navBtn)
-            text = "View personal statistics"
+            text = "Персональная статистика"
             setOnAction {
                 replaceWith(StatisticsView::class)
             }
         }
         button {
             addClass(Styles.navBtn)
-            text = "View interpretations"
+            text = "Все результаты"
             setOnAction {
                 replaceWith(AllResultsView::class)
+            }
+        }
+        button {
+            addClass(Styles.navBtn)
+            text = "Выйти"
+            setOnAction {
+                replaceWith(InitView::class)
             }
         }
     }
@@ -49,16 +56,23 @@ class UserView : View() {
         addClass(Styles.wrapper)
         button {
             addClass(Styles.navBtn)
-            text = "Attempt test"
+            text = "Пройти тест"
             setOnAction {
                 replaceWith(TestView::class)
             }
         }
         button {
             addClass(Styles.navBtn)
-            text = "View my results"
+            text = "Мои результаты"
             setOnAction {
                 openMyStatistics()
+            }
+        }
+        button {
+            addClass(Styles.navBtn)
+            text = "Выйти"
+            setOnAction {
+                replaceWith(InitView::class)
             }
         }
     }

@@ -12,25 +12,25 @@ class StatisticsView : View() {
 
     override val root =
         form {
-            fieldset("User name") {
-                field("First Name") {
-                    firstNameField = textfield()
-                }
-                field("Last Name") {
+            fieldset("Имя пользователя") {
+                field("Фамилия") {
                     lastNameField = textfield()
+                }
+                field("Имя") {
+                    firstNameField = textfield()
                 }
             }
 
             button {
                 addClass(Styles.navBtn)
-                text = "Watch statistics"
+                text = "Посмотреть статистику"
                 setOnAction {
                     controller.loadPersonalStatistics(firstNameField.text, lastNameField.text)
                     find<PersonalStatistics>().openModal(block = true)
                 }
             }
 
-            button("back to main menu") {
+            button("Назад") {
                 addClass(Styles.navBtn)
                 setOnAction {
                     replaceWith(UserView::class)

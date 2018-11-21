@@ -27,8 +27,8 @@ class LoginView : View() {
             alignment = Pos.CENTER
             spacing = 10.0
             vbox {
-                label("Login")
-                label("Password")
+                label("Логин")
+                label("Пароль")
             }
             vbox {
                 loginField = textfield("imenidebora")
@@ -36,7 +36,7 @@ class LoginView : View() {
             }
         }
         add(invalidMsg)
-        button("LOGIN") {
+        button("Логин") {
             addClass(Styles.navBtn)
             isWrapText = true
             setOnAction {
@@ -56,7 +56,7 @@ class LoginView : View() {
             }
         }
 
-        button("back") {
+        button("Назад") {
             addClass(Styles.navBtn)
             setOnAction {
                 replaceWith(InitView::class)
@@ -65,9 +65,7 @@ class LoginView : View() {
     }
 
     private fun invalidAuth() {
-        invalidMsg.text = "Wrong login or password, try again"
-//        invalidMsg.isVisible = true
-//        invalidMsg.requestLayout()
+        invalidMsg.text = "Что-то пошло не так, попробуйте еще раз"
     }
 
     fun clear() {
