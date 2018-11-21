@@ -10,7 +10,7 @@ object Users: IntIdTable() {
     val password = varchar("password", 20)
     val firstName = varchar("firstName", 20)
     val lastName = varchar("lastName", 20)
-    val age = integer("age")
+    val birthday = varchar("birthday", 10)
     val sex = integer("sex")
     val employment = varchar("employment", 30)
     val userType = integer("userType")
@@ -23,7 +23,7 @@ class UserEntry(id: EntityID<Int>): IntEntity(id) {
     var password by Users.password
     var firstName by Users.firstName
     var lastName by Users.lastName
-    var age by Users.age
+    var birthday by Users.birthday
     var sex by Users.sex
     var employment by Users.employment
     var userType by Users.userType

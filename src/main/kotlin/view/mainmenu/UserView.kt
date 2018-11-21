@@ -13,16 +13,16 @@ class UserView : View() {
 
     private val statisticsController: StatisticsController by inject()
     private val psychologistRoot = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
+        addClass(Styles.wrapper)
         button {
+            addClass(Styles.navBtn)
             text = "Attempt view.test"
             setOnAction {
                 replaceWith(TestView::class)
             }
         }
         button {
+            addClass(Styles.navBtn)
             text = "View my results"
             setOnAction {
                 openMyStatistics()
@@ -30,12 +30,14 @@ class UserView : View() {
         }
 
         button {
+            addClass(Styles.navBtn)
             text = "View personal statistics"
             setOnAction {
                 replaceWith(StatisticsView::class)
             }
         }
         button {
+            addClass(Styles.navBtn)
             text = "View interpretations"
             setOnAction {
                 replaceWith(AllResultsView::class)
@@ -44,16 +46,16 @@ class UserView : View() {
     }
 
     private val userRoot = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
+        addClass(Styles.wrapper)
         button {
-            text = "Attempt view.test"
+            addClass(Styles.navBtn)
+            text = "Attempt test"
             setOnAction {
                 replaceWith(TestView::class)
             }
         }
         button {
+            addClass(Styles.navBtn)
             text = "View my results"
             setOnAction {
                 openMyStatistics()

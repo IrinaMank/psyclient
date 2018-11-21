@@ -1,23 +1,32 @@
-package view
+package view.test
 
-import javafx.geometry.Pos
 import tornadofx.*
+import view.getString
 import view.interpretation.InterpretationView
 import view.mainmenu.UserView
-import view.test.TestController
 
 class ResultView : View() {
     val testController: TestController by inject()
     val result = find<TestController>().resultObservable
 
     override val root = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
         label {
-            text = "You time: ${result.time}"
+            text = "You time: ${result.time[0].getString()}"
+        }
+        label {
+            text = "You time: ${result.time[1].getString()}"
+        }
+        label {
+            text = "You time: ${result.time[2].getString()}"
+        }
+        label {
+            text = "You time: ${result.time[3].getString()}"
+        }
+        label {
+            text = "You time: ${result.time[4].getString()}"
         }
         button {
+            addClass(Styles.navBtn)
             text = "Watch interpretation"
             setOnAction {
                 replaceWith(InterpretationView::class)
@@ -25,6 +34,7 @@ class ResultView : View() {
         }
 
         button("back to main menu") {
+            addClass(Styles.navBtn)
             setOnAction {
                 replaceWith(UserView::class)
             }

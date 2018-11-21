@@ -1,9 +1,7 @@
 package database
 
 import enity.*
-import org.jetbrains.exposed.sql.Date
-import org.jetbrains.exposed.sql.ResultRow
-import org.joda.time.DateTime
+import java.time.LocalDate
 
 class Mapper {
 
@@ -14,7 +12,7 @@ class Mapper {
                     user.password,
                     user.firstName,
                     user.lastName,
-                    user.age,
+                    LocalDate.parse(user.birthday) ,
                     user.sex,
                     user.employment,
                     user.userType

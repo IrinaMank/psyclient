@@ -16,10 +16,12 @@ class InitView : View() {
             addClass(Styles.header)
         }
         button("Войти") {
+            addClass(Styles.navBtn)
             setOnAction { replaceWith(LoginView::class) }
         }
 
-        button("Зарегистрироваться") {
+        button("Регистрация") {
+            addClass(Styles.navBtn)
             setOnAction { replaceWith(RegisterView::class) }
         }
     }

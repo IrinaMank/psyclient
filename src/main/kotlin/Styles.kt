@@ -1,3 +1,4 @@
+import javafx.geometry.HPos
 import javafx.geometry.Pos
 import javafx.scene.layout.BorderStrokeStyle
 import javafx.scene.shape.StrokeLineCap
@@ -11,6 +12,7 @@ class Styles : Stylesheet() {
         // Define our styles
         val wrapper by cssclass()
         val header by cssclass()
+        val navBtn by cssclass()
 
         // Define our colors
         val dangerColor = c("#a94442")
@@ -38,7 +40,14 @@ class Styles : Stylesheet() {
         }
 
         button {
-            prefWidth = 400.px
+            add(navBtn)  {
+                prefWidth = 200.px
+            }
+        }
+
+        tableView {
+            columnHAlignment = HPos.CENTER
+            //col = SmartResize.POLICY
         }
     }
 }

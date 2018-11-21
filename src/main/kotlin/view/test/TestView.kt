@@ -5,7 +5,6 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
 import tornadofx.*
-import view.ResultView
 import view.mainmenu.UserView
 
 class TestView : View() {

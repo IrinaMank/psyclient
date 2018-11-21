@@ -9,11 +9,13 @@ class PersonalStatistics : View() {
     private val controller: StatisticsController by inject()
 
     override val root = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
-
+        addClass(Styles.wrapper)
+        label {
+            addClass(Styles.header)
+            text = "Personal statistics for ${controller.personName}"
+        }
         tableview(controller.statisticsList) {
+            columnResizePolicy = SmartResize.POLICY
             column("Time 1", String::class)  {
                 value { it.value.time[0] }
             }

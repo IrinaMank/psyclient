@@ -16,9 +16,9 @@ class AllResultsView : View() {
     private var lastNameField: TextField by singleAssign()
 
     override val root = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
+//        prefWidth = 800.0
+//        prefHeight = 600.0
+//        alignment = Pos.CENTER
 
         tableview(allResults) {
             column("UserName", String::class)  {
@@ -52,6 +52,7 @@ class AllResultsView : View() {
         }
 
         button("back") {
+            addClass(Styles.navBtn)
             setOnAction {
                 replaceWith(UserView::class)
             }

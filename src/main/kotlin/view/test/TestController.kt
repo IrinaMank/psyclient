@@ -4,7 +4,7 @@ import database.DbProvider
 import enity.Interpretation
 import enity.Result
 import tornadofx.Controller
-import view.ResultView
+
 class TestController: Controller()  {
     private val db = DbProvider.getDb()
     val test: TestView by inject()

@@ -16,9 +16,9 @@ class InterpretationView : View() {
     private val persistenceTextView = label()
 
     override val root = vbox(10.0) {
-        prefWidth = 800.0
-        prefHeight = 600.0
-        alignment = Pos.CENTER
+//        prefWidth = 800.0
+//        prefHeight = 600.0
+//        alignment = Pos.CENTER
         val result = controller.resultObservable.getInterpretation()
         result.let {
             interpretationInText(it)
@@ -28,6 +28,7 @@ class InterpretationView : View() {
         add(persistenceTextView)
 
         button("back") {
+            addClass(Styles.navBtn)
             setOnAction {
                 replaceWith(UserView::class)
             }

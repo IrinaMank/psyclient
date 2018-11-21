@@ -29,3 +29,5 @@ fun Float.persistenceInText() =
         } else {
             "Ниже среднего"
         }
+
+fun Float.getString(): String ="${this.div(60000)}m ${this.div(1000)}s"

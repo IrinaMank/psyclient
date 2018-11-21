@@ -19,7 +19,7 @@ class MnpDatabase {
                 this.password = user.password
                 this.firstName = user.firstName
                 this.lastName = user.lastName
-                this.age = user.age
+                this.birthday = user.birthday.toString()
                 this.sex = user.sex
                 this.employment = user.employment
             }

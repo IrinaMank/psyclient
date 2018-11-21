@@ -11,7 +11,6 @@ class StatisticsView : View() {
     private var lastNameField: TextField by singleAssign()
 
     override val root =
-
         form {
             fieldset("User name") {
                 field("First Name") {
@@ -23,6 +22,7 @@ class StatisticsView : View() {
             }
 
             button {
+                addClass(Styles.navBtn)
                 text = "Watch statistics"
                 setOnAction {
                     controller.loadPersonalStatistics(firstNameField.text, lastNameField.text)
@@ -31,6 +31,7 @@ class StatisticsView : View() {
             }
 
             button("back to main menu") {
+                addClass(Styles.navBtn)
                 setOnAction {
                     replaceWith(UserView::class)
                 }
