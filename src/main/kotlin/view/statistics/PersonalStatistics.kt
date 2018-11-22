@@ -9,10 +9,10 @@ class PersonalStatistics : View() {
     private val controller: StatisticsController by inject()
 
     override val root = vbox(10.0) {
-        addClass(Styles.wrapper)
+        spacing = 10.0
         label {
             addClass(Styles.header)
-            text = "Personal statistics for ${controller.personName}"
+            text = "Персональная статистика пользователя: ${controller.personName}"
         }
         tableview(controller.statisticsList) {
             columnResizePolicy = SmartResize.POLICY
