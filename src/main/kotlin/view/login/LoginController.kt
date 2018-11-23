@@ -21,6 +21,6 @@ class LoginController: Controller() {
 
     fun showLoginScreen(message: String, shake: Boolean = false) {
         loginScreen.replaceWith(LoginView::class)
-    }//ToDo: add shaking https://github.com/edvin/tornadofx-samples/blob/master/login/src/main/kotlin/no/tornado/fxsample/login/LoginController.kt
+    }
 
 }

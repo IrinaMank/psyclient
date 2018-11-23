@@ -7,6 +7,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.text.TextAlignment
 import tornadofx.*
+import view.Sex
 import view.mainmenu.InitView
 import view.mainmenu.UserView
 
@@ -40,8 +41,8 @@ class RegisterView : View() {
             }
             field("Пол"){
                 hbox(10.0) {
-                    radiobutton("Female", sexGroup).userData = 1
-                    radiobutton("Male", sexGroup).userData  = 0
+                    radiobutton("Female", sexGroup).userData = Sex.FEMALE.inInt
+                    radiobutton("Male", sexGroup).userData  =  Sex.MALE.inInt
                 }
             }
             field("Занятость") {
@@ -68,7 +69,7 @@ class RegisterView : View() {
                     var result = false
                     runAsyncWithProgress {
                         val user = User(firstName = firstNameField.text, lastName = lastNameField.text, login = loginField.text, password = passwordField.text,
-                                birthday = birthday.value, employment = selectedEmployment.value, sex = getSex())
+                                birthday = birthday.value, employment = selectedEmployment.value, sex = sexGroup.selectedToggle.userData as Int)
                         result = controller.register(user)
                     }.setOnSucceeded {
                         if (result) {
@@ -93,13 +94,6 @@ class RegisterView : View() {
     private fun invalidAuth() {
         invalidMsg.text = "ЧТо-то пошло не так, попробуйте еще раз"
     }
-
-    private fun getSex() =
-        when(sexGroup.selectedToggle.userData.toString()) {
-            "0" -> 0
-            "1" -> 1
-            else -> 1
-        }//ToDO: please change this govnocode
 
     fun clear() {
         firstNameField.text = ""

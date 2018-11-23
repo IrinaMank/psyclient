@@ -29,7 +29,7 @@ class TestController: Controller()  {
             workEffect = this.sum() /  this.size
         }
 
-        val workability = resultObservable.time[0] / workEffect//ToDo: здесь падает понулевому размеру
+        val workability = resultObservable.time[0] / workEffect
         val persistence = resultObservable.time.last()/ workEffect
 
         return Interpretation(workability, persistence)
