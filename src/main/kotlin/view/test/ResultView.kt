@@ -1,6 +1,7 @@
 package view.test
 
 import enity.Interpretation
+import javafx.geometry.Pos
 import tornadofx.*
 import view.getInterpretation
 import view.getString
@@ -9,23 +10,25 @@ import view.mainmenu.UserView
 class ResultView : View() {
     val testController: TestController by inject()
     val result = find<TestController>().resultObservable
-    private val workabilityTextView = label()
-    private val persistenceTextView = label()
+    private val workabilityTextView = text()
+    private val persistenceTextView = text()
 
     override val root = vbox(10.0) {
-        label {
+        alignment = Pos.CENTER
+        setPrefSize(300.0,300.0)
+        text {
             text = "Таблица 1: ${result.time[0].getString()}"
         }
-        label {
+        text {
             text = "Таблица 2: ${result.time[1].getString()}"
         }
-        label {
+        text {
             text = "Таблица 3: ${result.time[2].getString()}"
         }
-        label {
+        text {
             text = "Таблица 4: ${result.time[3].getString()}"
         }
-        label {
+        text {
             text = "Таблица 5: ${result.time[4].getString()}"
         }
         val result = result.getInterpretation()

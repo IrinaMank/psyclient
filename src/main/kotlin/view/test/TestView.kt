@@ -1,17 +1,19 @@
 package view.test
 
 import enity.Result
+import javafx.application.Platform
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
 import tornadofx.*
 import view.mainmenu.UserView
+import kotlin.concurrent.timer
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
     val TABLE_SIZE = 2
     val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
-    val labelTime = label("Time: ")
+    val labelTime = text("Time: ")
     var currentNumber = 1
     val currentNumLabel = text("Pick number: $currentNumber")
     //    var seconds: Int  by Delegates.observable(0) {
@@ -39,17 +41,24 @@ class TestView : View() {
         prefWidth = 800.0
         prefHeight = 600.0
         alignment = Pos.CENTER
-//        label {
-//            text = "Pick number: $currentNumber"
-//        }
         this.add(currentNumLabel)
+        text { text = "Время" }
         this.add(labelTime)
         fillNumbers()
         add(testTable)
 
-        button("back to main menu") {
+        button("Назад в Гланое меню") {
             setOnAction {
                 replaceWith(UserView::class)
+            }
+        }
+    }
+
+    init {
+        timer(daemon = true, period = 1000) {
+            mistakes ++
+            Platform.runLater {
+                labelTime.text = mistakes.toString()
             }
         }
     }
