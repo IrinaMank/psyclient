@@ -30,7 +30,9 @@ fun Float.persistenceInText() =
             "Ниже среднего"
         }
 
-fun Float.getString(): String ="${this / 60000}m ${this /1000}s"
+fun Float.getString(): String ="${(this / 60000).toInt()}min ${(this /1000).toInt()}sec"
+
+fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
 enum class Sex(val inInt: Int) {
     FEMALE(1),

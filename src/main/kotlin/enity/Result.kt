@@ -5,5 +5,5 @@ import java.util.*
 
 data class Result(
         val time: ArrayList<Float> = ArrayList(),
-        val date: DateTime = DateTime()
+        var date: DateTime = DateTime()
 )

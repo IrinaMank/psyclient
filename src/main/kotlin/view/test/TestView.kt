@@ -5,17 +5,18 @@ import javafx.application.Platform
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
+import org.joda.time.DateTime
 import tornadofx.*
 import view.mainmenu.UserView
 import kotlin.concurrent.timer
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
-    val TABLE_SIZE = 2
+    val TABLE_SIZE = 5
     val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
-    val labelTime = text("Time: ")
+    val labelTime = text("Время, сек: ")
     var currentNumber = 1
-    val currentNumLabel = text("Pick number: $currentNumber")
+    val currentNumLabel = text("Выберите число: $currentNumber")
     //    var seconds: Int  by Delegates.observable(0) {
 //        prop, old, new ->
 //        labelTime.text = new.toString()
@@ -42,12 +43,12 @@ class TestView : View() {
         prefHeight = 600.0
         alignment = Pos.CENTER
         this.add(currentNumLabel)
-        text { text = "Время" }
+        text { text = "Время, сек" }
         this.add(labelTime)
         fillNumbers()
         add(testTable)
 
-        button("Назад в Гланое меню") {
+        button("Назад в Главное меню") {
             setOnAction {
                 replaceWith(UserView::class)
             }
@@ -69,6 +70,7 @@ class TestView : View() {
                 clearAll()
                 val time = System.currentTimeMillis() - timeBegin
                 result.time.add(time.toFloat())
+                result.date = DateTime()
                 loginController.uploadResult(result)
                 replaceWith(ResultView::class)
             }
@@ -80,7 +82,7 @@ class TestView : View() {
             timeBegin = System.currentTimeMillis()
         }
         currentNumber++
-        currentNumLabel.text = "Pick number: $currentNumber"
+        currentNumLabel.text = "Выберите число: $currentNumber"
         button.textFill = javafx.scene.paint.Color.BLACK
     }
 

@@ -16,21 +16,22 @@ class ResultView : View() {
     override val root = vbox(10.0) {
         alignment = Pos.CENTER
         setPrefSize(300.0,300.0)
-        text {
-            text = "Таблица 1: ${result.time[0].getString()}"
-        }
-        text {
-            text = "Таблица 2: ${result.time[1].getString()}"
-        }
-        text {
-            text = "Таблица 3: ${result.time[2].getString()}"
-        }
-        text {
-            text = "Таблица 4: ${result.time[3].getString()}"
-        }
-        text {
-            text = "Таблица 5: ${result.time[4].getString()}"
-        }
+            text {
+                text = "Таблица 1: ${result.time[0].getString()}"
+            }
+            text {
+                text = "Таблица 2: ${result.time[1].getString()}"
+            }
+            text {
+                text = "Таблица 3: ${result.time[2].getString()}"
+            }
+            text {
+                text = "Таблица 4: ${result.time[3].getString()}"
+            }
+            text {
+                text = "Таблица 5: ${result.time[4].getString()}"
+            }
+
         val result = result.getInterpretation()
         result.let {
             interpretationInText(it)
