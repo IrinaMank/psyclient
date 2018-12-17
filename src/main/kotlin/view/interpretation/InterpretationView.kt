@@ -16,6 +16,8 @@ class InterpretationView : View() {
     private val persistenceTextView = label()
 
     override val root = vbox(10.0) {
+        alignment = Pos.CENTER
+        spacing = 10.0
         val result = controller.resultObservable.getInterpretation()
         result.let {
             interpretationInText(it)

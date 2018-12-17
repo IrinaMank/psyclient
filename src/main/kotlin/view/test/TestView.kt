@@ -103,7 +103,6 @@ class TestView : View() {
                     if (number == currentNumber) {
                         onClick(number, button)
                     } else {
-                        mistakes++
                         button.textFill = javafx.scene.paint.Color.BLACK
                     }
                 }

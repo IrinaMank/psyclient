@@ -42,6 +42,7 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'LoginApp'
+        attributes 'Main-Class': 'LoginAppKt'
     }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }

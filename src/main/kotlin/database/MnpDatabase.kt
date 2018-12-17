@@ -53,7 +53,7 @@ class MnpDatabase {
     fun uploadResult(result: Result) {
         transaction {
             ResultEntry.new {
-                this.user = UserEntry.find { Users.id eq UserData.user?.id }.first()
+                this.user = UserEntry.find { Users.id eq UserData.user?.id }.firstOrNull() ?: UserEntry(id)
                 this.time1 = result.time[0]
                 this.time2 = result.time[1]
                 this.time3 = result.time[2]

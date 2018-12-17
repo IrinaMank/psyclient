@@ -14,6 +14,8 @@ class AllResultsView : View() {
     private val allResults = DbProvider.getDb().getAllStatistics().observable()
 
     override val root = vbox(10.0) {
+        alignment = Pos.CENTER
+        spacing = 10.0
         tableview(allResults) {
             column("Имя", String::class)  {
                 value { it.value.userName }

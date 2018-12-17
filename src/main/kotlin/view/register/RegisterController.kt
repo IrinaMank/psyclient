@@ -17,6 +17,7 @@ class RegisterController: Controller() {
         if (isLoginUnique) {
             db.addUser(user)
             success = true
+            UserData.user = user
         }
         return success
     }

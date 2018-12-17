@@ -31,12 +31,12 @@ class LoginView : View() {
                 label("Пароль")
             }
             vbox {
-                loginField = textfield("imenidebora")
-                passwordField = passwordfield("123456")
+                loginField = textfield()
+                passwordField = passwordfield()
             }
         }
         add(invalidMsg)
-        button("Логин") {
+        button("Войти") {
             addClass(Styles.navBtn)
             isWrapText = true
             setOnAction {

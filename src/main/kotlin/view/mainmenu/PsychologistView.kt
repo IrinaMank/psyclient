@@ -9,11 +9,9 @@ import view.statistics.PersonalStatistics
 import view.statistics.StatisticsController
 import view.statistics.StatisticsView
 
-class UserView : View() {
+class PsychologistView : View() {
 
     private val statisticsController: StatisticsController by inject()
-
-    private val rootBox = vbox{}
     private val psychologistRoot = vbox(10.0) {
         addClass(Styles.wrapper)
         button {
@@ -54,44 +52,9 @@ class UserView : View() {
         }
     }
 
-    private val userRoot = vbox(10.0) {
-        addClass(Styles.wrapper)
-        button {
-            addClass(Styles.navBtn)
-            text = "Пройти тест"
-            setOnAction {
-                replaceWith(TestView::class)
-            }
-        }
-        button {
-            addClass(Styles.navBtn)
-            text = "Мои результаты"
-            setOnAction {
-                    openMyStatistics()
-            }
-        }
-        button {
-            addClass(Styles.navBtn)
-            text = "Выйти"
-            setOnAction {
-                UserData.user = null
-                replaceWith(InitView::class)
-            }
-        }
-    }
 
-    override val root = rootBox
+    override val root = psychologistRoot
 
-    override fun onDock() {
-        super.onDock()
-        if (UserData.user?.userType == 0) root.add(userRoot) else root.add(psychologistRoot)
-    }
-
-    override fun onUndock() {
-        super.onUndock()
-        userRoot.removeFromParent()
-        psychologistRoot.removeFromParent()
-    }
     private fun openMyStatistics() {
         statisticsController.loadMyStatistics()
         find<PersonalStatistics>().openModal(block = true)
