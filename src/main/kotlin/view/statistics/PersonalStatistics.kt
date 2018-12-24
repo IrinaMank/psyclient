@@ -3,7 +3,10 @@ package view.statistics
 import javafx.geometry.Pos
 import org.joda.time.format.DateTimeFormat
 import tornadofx.*
+import view.getInterpretation
 import view.getString
+import view.persistenceInText
+import view.workabilityInText
 
 class PersonalStatistics : View() {
 
@@ -36,6 +39,16 @@ class PersonalStatistics : View() {
         }
         column("Таблица 5", String::class) {
             value { it.value.time[4].getString() }
+        }
+        column("Врабатываемость", String::class) {
+            value {
+                it.value.getInterpretation().workability.workabilityInText()
+            }
+        }
+        column("Устойчивость", String::class) {
+            value {
+                it.value.getInterpretation().persistence.persistenceInText()
+            }
         }
         column("Дата", String::class) {
             value {

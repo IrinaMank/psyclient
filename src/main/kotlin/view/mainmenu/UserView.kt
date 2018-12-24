@@ -3,6 +3,7 @@ package view.mainmenu
 import javafx.geometry.Pos
 import view.test.TestView
 import tornadofx.*
+import view.help.HelpView
 import view.interpretation.InterpretationView
 import view.psychologist.AllResultsView
 import view.statistics.PersonalStatistics
@@ -60,7 +61,7 @@ class UserView : View() {
             addClass(Styles.navBtn)
             text = "Пройти тест"
             setOnAction {
-                replaceWith(TestView::class)
+                replaceWith(HelpView::class)
             }
         }
         button {

@@ -7,12 +7,13 @@ import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
 import org.joda.time.DateTime
 import tornadofx.*
+import view.help.HelpView
 import view.mainmenu.UserView
 import kotlin.concurrent.timer
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
-    val TABLE_SIZE = 5
+    val TABLE_SIZE = 2
     val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
     val labelTime = text("Время, сек: ")
     var currentNumber = 1
@@ -47,6 +48,12 @@ class TestView : View() {
         this.add(labelTime)
         fillNumbers()
         add(testTable)
+
+        button("Назад в Справку") {
+            setOnAction {
+                replaceWith(HelpView::class)
+            }
+        }
 
         button("Назад в Главное меню") {
             setOnAction {
@@ -120,5 +127,10 @@ class TestView : View() {
         mistakes = 0
     }
 
+
+    override fun onDock() {
+        super.onDock()
+        clearAll()
+    }
 }
 

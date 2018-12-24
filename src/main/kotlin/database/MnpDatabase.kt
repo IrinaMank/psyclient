@@ -12,9 +12,10 @@ class MnpDatabase {
 
     private val mapper = Mapper()
 
-    fun addUser(user: User) {
+    fun addUser(user: User): Int {
+        var i = 0
         transaction {
-            UserEntry.new{
+            i = UserEntry.new{
                 this.login = user.login
                 this.password = user.password
                 this.firstName = user.firstName
@@ -22,8 +23,9 @@ class MnpDatabase {
                 this.birthday = user.birthday.toString()
                 this.sex = user.sex
                 this.employment = user.employment
-            }
+            }.id.value
         }
+        return i
     }
 
     fun isLoginUnique(login: String): Boolean {

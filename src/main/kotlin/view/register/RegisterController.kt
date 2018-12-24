@@ -15,8 +15,9 @@ class RegisterController: Controller() {
         var success = false
         val isLoginUnique = checkLogin(user.login)
         if (isLoginUnique) {
-            db.addUser(user)
+            val id = db.addUser(user)
             success = true
+            user.id = id
             UserData.user = user
         }
         return success

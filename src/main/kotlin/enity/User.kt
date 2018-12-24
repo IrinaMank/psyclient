@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import java.time.LocalDate
 
 data class User(
-        val id: Int = 0,
+        var id: Int = 0,
         val login: String = "",
         val password: String = "",
         val firstName: String = "",
