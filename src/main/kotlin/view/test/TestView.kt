@@ -86,6 +86,7 @@ class TestView : View() {
             fillNumbers()
             currentNumber = 0
             tableNumber++
+            mistakes = 0
             timeBegin = System.currentTimeMillis()
         }
         currentNumber++
