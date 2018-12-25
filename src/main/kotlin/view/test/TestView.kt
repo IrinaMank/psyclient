@@ -7,6 +7,7 @@ import javafx.scene.control.Button
 import javafx.scene.layout.ColumnConstraints
 import org.joda.time.DateTime
 import tornadofx.*
+import view.error.ErrorView
 import view.help.HelpView
 import view.mainmenu.UserView
 import kotlin.concurrent.timer
@@ -18,6 +19,7 @@ class TestView : View() {
     val labelTime = text("Время, сек: ")
     var currentNumber = 1
     val currentNumLabel = text("Выберите число: $currentNumber")
+    val maxTime = 0.2 * 60
     //    var seconds: Int  by Delegates.observable(0) {
 //        prop, old, new ->
 //        labelTime.text = new.toString()
@@ -27,6 +29,7 @@ class TestView : View() {
     var tableNumber = 1
     var mistakes = 0
     val result = Result()
+    val labelTable = text("Текущая таблица: $tableNumber")
 
     //val timer = timer(period = 1000, action = { seconds++ })
 
@@ -43,6 +46,7 @@ class TestView : View() {
         prefWidth = 800.0
         prefHeight = 600.0
         alignment = Pos.CENTER
+        this.add(labelTable)
         this.add(currentNumLabel)
         text { text = "Время, сек" }
         this.add(labelTime)
@@ -65,6 +69,11 @@ class TestView : View() {
     init {
         timer(daemon = true, period = 1000) {
             mistakes ++
+            if (mistakes > maxTime) {
+                Platform.runLater {
+                    maxTime()
+                }
+            }
             Platform.runLater {
                 labelTime.text = mistakes.toString()
             }
@@ -74,12 +83,7 @@ class TestView : View() {
     fun onClick(number: Int, button: Button) {
         if (currentNumber >= TABLE_SIZE * TABLE_SIZE) {
             if (tableNumber == MAX_TABLE_COUNT) {
-                clearAll()
-                val time = System.currentTimeMillis() - timeBegin
-                result.time.add(time.toFloat())
-                result.date = DateTime()
-                loginController.uploadResult(result)
-                replaceWith(ResultView::class)
+                endTest()
             }
             val time = System.currentTimeMillis() - timeBegin
             result.time.add(time.toFloat())
@@ -88,6 +92,7 @@ class TestView : View() {
             tableNumber++
             mistakes = 0
             timeBegin = System.currentTimeMillis()
+            labelTable.text = "Текущая таблица: $tableNumber"
         }
         currentNumber++
         currentNumLabel.text = "Выберите число: $currentNumber"
@@ -104,20 +109,34 @@ class TestView : View() {
                 button.setPrefSize(60.0, 60.0)
                 button.setOnMousePressed {
                     if (number != currentNumber) {
-                        button.textFill = javafx.scene.paint.Color.RED
+                        button.addClass(Styles.mistakeBtn)
                     }
                 }
                 button.setOnMouseReleased {
                     if (number == currentNumber) {
                         onClick(number, button)
                     } else {
-                        button.textFill = javafx.scene.paint.Color.BLACK
+                        button.removeClass(Styles.mistakeBtn)
                     }
                 }
                 testTable.add(button, c, r)
             }
         }
         timeBegin = System.currentTimeMillis()
+    }
+
+    fun maxTime() {
+        clearAll()
+        replaceWith(ErrorView::class)
+    }
+
+    fun endTest() {
+        clearAll()
+        val time = System.currentTimeMillis() - timeBegin
+        result.time.add(time.toFloat())
+        result.date = DateTime()
+        loginController.uploadResult(result)
+        replaceWith(ResultView::class)
     }
 
 

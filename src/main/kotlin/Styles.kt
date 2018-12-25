@@ -13,6 +13,8 @@ class Styles : Stylesheet() {
         val wrapper by cssclass()
         val header by cssclass()
         val navBtn by cssclass()
+        val mistakeBtn by cssclass()
+        val normalBtn by cssclass()
 
         // Define our colors
         val dangerColor = c("#a94442")
@@ -42,6 +44,22 @@ class Styles : Stylesheet() {
         button {
             add(navBtn)  {
                 prefWidth = 200.px
+            }
+        }
+
+        button {
+            add(mistakeBtn)  {
+                prefWidth = 60.px
+                prefHeight = 60.px
+                backgroundColor += c("#FF0000")
+            }
+        }
+
+
+        button {
+            add(normalBtn)  {
+                prefWidth = 200.px
+                backgroundColor += c("#DCDCDC")
             }
         }
 
