@@ -13,7 +13,7 @@ import kotlin.concurrent.timer
 
 class TestView : View() {
     val MAX_TABLE_COUNT = 5
-    val TABLE_SIZE = 2
+    val TABLE_SIZE = 5
     val numbers = (1..TABLE_SIZE*TABLE_SIZE).toList()
     val labelTime = text("Время, сек: ")
     var currentNumber = 1
