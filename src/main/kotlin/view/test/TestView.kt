@@ -19,7 +19,7 @@ class TestView : View() {
     val labelTime = text("Время, сек: ")
     var currentNumber = 1
     val currentNumLabel = text("Выберите число: $currentNumber")
-    val maxTime = 0.2 * 60
+    val maxTime = 3 * 60
     //    var seconds: Int  by Delegates.observable(0) {
 //        prop, old, new ->
 //        labelTime.text = new.toString()
